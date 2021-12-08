@@ -122,10 +122,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-   //  MX_USB_HOST_Process();
-		
-		
 		 if(spi_recv_flag == SPI_FREE)
 		   {
 		      HAL_SPI_Receive_IT(&hspi1, (uint8_t *)spi_buf, 5);
@@ -135,7 +131,9 @@ int main(void)
 				   HAL_GPIO_WritePin(LD4_GPIO_Port,LD4_Pin , GPIO_PIN_RESET);
        }
 			 
-			 
+    /* USER CODE END WHILE */
+  //  MX_USB_HOST_Process();
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -323,7 +321,7 @@ static void MX_SPI1_Init(void)
   /* SPI1 parameter configuration*/
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_SLAVE;
-  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;

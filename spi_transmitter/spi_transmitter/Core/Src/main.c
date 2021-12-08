@@ -123,39 +123,39 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-  //  MX_USB_HOST_Process();
-		
-		
-		
+				
 		/* ****************************************************************************** */	
 		
-	 	HAL_Delay(5000);
+	 HAL_Delay(500);
 		
 		spi_busy_flag  = SPI_BUSY;
 		
 		spiTransmitStatus =  HAL_SPI_Transmit_IT(&hspi1, (uint8_t *)SPI_transmitt_array1,5);
 
-      while(spi_busy_flag)
+      while(spi_busy_flag == SPI_BUSY)
 		   {
          HAL_Delay(1);
        }		
 		
+			 
+			 
 		/* ****************************************************************************** */	 
-			 
-		  HAL_Delay(5000);
-			 
-			spi_busy_flag  = SPI_BUSY; 
-			 
-			spiTransmitStatus =  HAL_SPI_Transmit_IT(&hspi1, (uint8_t *)SPI_transmitt_array2,5);
 
-      while(spi_busy_flag)
+		HAL_Delay(500);
+		
+		spi_busy_flag  = SPI_BUSY;
+		
+		spiTransmitStatus =  HAL_SPI_Transmit_IT(&hspi1, (uint8_t *)SPI_transmitt_array2,5);
+
+      while(spi_busy_flag == SPI_BUSY)
 		   {
          HAL_Delay(1);
-       }	 
-			 
-			/* ****************************************************************************** */		 
-	
+       }		
+		
+		
+    /* USER CODE END WHILE */
+    //MX_USB_HOST_Process();
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -295,7 +295,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -411,8 +411,6 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
   {
     if(hspi1.TxXferCount==0)
     {
-	
-			HAL_Delay(1);
 			
       spi_busy_flag  = SPI_FREE;	    				
     }
